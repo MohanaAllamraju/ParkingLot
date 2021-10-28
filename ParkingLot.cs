@@ -8,6 +8,8 @@ namespace ConsoleApp7
     class ParkingLot
     {
         List<Lot> Lots = new List<Lot>();
+        List<Vehicle> Vehicles = new List<Vehicle>();
+
         int NoOfTwoWheelerSlotsAvailable;
         int NoOfFourWheelerSlotsAvailable;
         int NoOfHeavyWheelerSlotsAvailable;
@@ -32,7 +34,6 @@ namespace ConsoleApp7
             {
                 this.Lots.Add(new Lot(LotId++, "Heavy-Vehicle", false));
             }
-            
         }
                
         public void ParkVehicle(string type, string vehicleNumber)
@@ -45,10 +46,11 @@ namespace ConsoleApp7
                     Console.WriteLine("Two wheeler parking lot is full.");
                     return;
                 }
-
                 freeSlot.LotStatus = true;
-                this.VehicleNumber = vehicleNumber;
-             }
+
+              
+               
+            }
 
              else if(type.Equals("Four-wheeler" ,StringComparison.CurrentCultureIgnoreCase))
              {
@@ -58,9 +60,7 @@ namespace ConsoleApp7
                     Console.WriteLine("Four wheeler parking lot is full.");
                     return;
                 }
-
                 freeSlot.LotStatus = true;
-
              }
              else if(type.Equals("Heavy-vehicle" , StringComparison.CurrentCultureIgnoreCase))
              {
@@ -70,9 +70,7 @@ namespace ConsoleApp7
                     Console.WriteLine("Heavy Vehicle parking lot is full");
                     return;
                 }
-
-                freeSlot.LotStatus = true;
-
+                freeSlot.LotStatus = true;       
              }
         }
         public void UnParkVehicle(string type)
@@ -112,7 +110,10 @@ namespace ConsoleApp7
         {
             foreach(var lot in this.Lots.Where(e => e.LotStatus))
             {
-                Console.WriteLine($"{lot.LotType} {VehicleNumber} is parked in {lot.LotID}");
+                foreach (var vehiclenumber in this.Vehicles.Where(v => v.IsVehicleAvailable))
+                {
+                    Console.WriteLine($"{lot.LotType} {vehiclenumber.VehicleNumber}  is parked in {lot.LotID}");
+                }
             }
         }
 
