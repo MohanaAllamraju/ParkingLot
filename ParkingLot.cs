@@ -11,7 +11,8 @@ namespace ConsoleApp7
         int NoOfTwoWheelerSlotsAvailable;
         int NoOfFourWheelerSlotsAvailable;
         int NoOfHeavyWheelerSlotsAvailable;
-
+        String VehicleNumber;
+        int TicketID = 1;
         int LotId = 1;
 
         public ParkingLot(int noOfTwoWheelerSlotsAvailable, int noOfFourWheelerSlotsAvailable, int noOfHeavyWheelerSlotsAvailable)
@@ -34,7 +35,7 @@ namespace ConsoleApp7
             
         }
                
-        public void ParkVehicle(string type)
+        public void ParkVehicle(string type, string vehicleNumber)
         {
              if(type.Equals("Two-wheeler" , StringComparison.CurrentCultureIgnoreCase))
              {
@@ -46,6 +47,7 @@ namespace ConsoleApp7
                 }
 
                 freeSlot.LotStatus = true;
+                this.VehicleNumber = vehicleNumber;
              }
 
              else if(type.Equals("Four-wheeler" ,StringComparison.CurrentCultureIgnoreCase))
@@ -86,14 +88,37 @@ namespace ConsoleApp7
 
                 AvailableSlot.LotStatus = false;
             }
-
+            else if(type.Equals("Four-wheeler" , StringComparison.CurrentCultureIgnoreCase))
+            {
+                var AvailableSlot = this.Lots.Find(e => e.LotType.Equals(type, StringComparison.CurrentCultureIgnoreCase) && e.LotStatus == true);
+                if(AvailableSlot == null)
+                {
+                    Console.WriteLine("Parking lot is empty");
+                    return;
+                }
+                AvailableSlot.LotStatus = false;
+            }
+            else if(type.Equals("Heavy-Vehicle", StringComparison.CurrentCultureIgnoreCase))
+            {
+                var AvailableSlot = this.Lots.Find(e => e.LotType.Equals(type, StringComparison.CurrentCultureIgnoreCase) && e.LotStatus == true);
+                if(AvailableSlot == null)
+                {
+                    Console.WriteLine("Parking lot is empty");
+                }
+                AvailableSlot.LotStatus = false;
+            }
         }
         public void PrintParkingLot()
         {
             foreach(var lot in this.Lots.Where(e => e.LotStatus))
             {
-                Console.WriteLine($"{lot.LotID}\t{lot.LotType}\t Parked");
+                Console.WriteLine($"{lot.LotType} {VehicleNumber} is parked in {lot.LotID}");
             }
+        }
+
+        public int GenerteID()
+        {
+            return TicketID++;
         }
     }
 }

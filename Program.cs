@@ -39,17 +39,21 @@ namespace ConsoleApp7
                 {
                     Console.WriteLine("Choose your vehicle type : \n 1. Two-Wheeler \n 2. Four-Wheeler \n 3.Heavy-vehicle");
                     String type = Console.ReadLine();
+                    Console.WriteLine("Please provide your vehicle number");
+                    String vehicleNumber = Console.ReadLine();
                     if (type == "1")
                     {
-                        parkingLot.ParkVehicle("Two-wheeler");
+                        int TicketID =parkingLot.GenerteID();
+                        parkingLot.ParkVehicle("Two-wheeler" , vehicleNumber);
+                        Console.WriteLine("Your Ticket ID is : " + TicketID);
                     }
                     else if (type == "2")
                     {   
-                        parkingLot.ParkVehicle("Four-wheeler");
+                        parkingLot.ParkVehicle("Four-wheeler", vehicleNumber);
                     }
                     else if (type == "3")
                     {
-                        parkingLot.ParkVehicle("Heavy-vehicle");
+                        parkingLot.ParkVehicle("Heavy-vehicle" , vehicleNumber);
                     }
                 }
                 else if(Mode == "2")
@@ -60,6 +64,15 @@ namespace ConsoleApp7
                     {
                         parkingLot.UnParkVehicle("Two-Wheeler");
                     }
+                    else if(type == "2")
+                    {
+                        parkingLot.UnParkVehicle("Four-Wheeler");
+                    }
+                    else if(type == "3")
+                    {
+                        parkingLot.UnParkVehicle("Heavy-Vehicle");
+                    }
+
                 }
                 else if (Mode == "3")
                 {
