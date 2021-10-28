@@ -8,7 +8,6 @@ namespace ConsoleApp7
     class ParkingLot
     {
         List<Lot> Lots = new List<Lot>();
-        List<Vehicle> Vehicles = new List<Vehicle>();
 
         int NoOfTwoWheelerSlotsAvailable;
         int NoOfFourWheelerSlotsAvailable;
@@ -47,10 +46,8 @@ namespace ConsoleApp7
                     return;
                 }
                 freeSlot.LotStatus = true;
-
-              
-               
-            }
+                freeSlot.Ticket = new Ticket(freeSlot.LotID, vehicleNumber, DateTime.Now);
+             }
 
              else if(type.Equals("Four-wheeler" ,StringComparison.CurrentCultureIgnoreCase))
              {
@@ -61,7 +58,8 @@ namespace ConsoleApp7
                     return;
                 }
                 freeSlot.LotStatus = true;
-             }
+               freeSlot.Ticket = new Ticket(freeSlot.LotID, vehicleNumber, DateTime.Now);
+            }
              else if(type.Equals("Heavy-vehicle" , StringComparison.CurrentCultureIgnoreCase))
              {
                 var freeSlot = this.Lots.Find(e => e.LotType.Equals(type , StringComparison.CurrentCultureIgnoreCase) && e.LotStatus == false);
@@ -70,11 +68,13 @@ namespace ConsoleApp7
                     Console.WriteLine("Heavy Vehicle parking lot is full");
                     return;
                 }
-                freeSlot.LotStatus = true;       
-             }
+                freeSlot.LotStatus = true;
+                freeSlot.Ticket = new Ticket(freeSlot.LotID, vehicleNumber, DateTime.Now);
+            }
         }
         public void UnParkVehicle(string type)
         {
+
             if (type.Equals("Two-wheeler", StringComparison.CurrentCultureIgnoreCase))
             {
                 var AvailableSlot = this.Lots.Find(e => e.LotType.Equals(type, StringComparison.CurrentCultureIgnoreCase) && e.LotStatus == true);
@@ -85,6 +85,7 @@ namespace ConsoleApp7
                 }
 
                 AvailableSlot.LotStatus = false;
+                AvailableSlot.Ticket.ExitTime = DateTime.Now;
             }
             else if(type.Equals("Four-wheeler" , StringComparison.CurrentCultureIgnoreCase))
             {
@@ -95,6 +96,7 @@ namespace ConsoleApp7
                     return;
                 }
                 AvailableSlot.LotStatus = false;
+                AvailableSlot.Ticket.ExitTime = DateTime.Now;
             }
             else if(type.Equals("Heavy-Vehicle", StringComparison.CurrentCultureIgnoreCase))
             {
@@ -104,22 +106,18 @@ namespace ConsoleApp7
                     Console.WriteLine("Parking lot is empty");
                 }
                 AvailableSlot.LotStatus = false;
+                AvailableSlot.Ticket.ExitTime = DateTime.Now;
             }
+
         }
         public void PrintParkingLot()
         {
-            foreach(var lot in this.Lots.Where(e => e.LotStatus))
+            foreach(var lot in this.Lots.Where(e => e.Ticket != null))
             {
-                foreach (var vehiclenumber in this.Vehicles.Where(v => v.IsVehicleAvailable))
-                {
-                    Console.WriteLine($"{lot.LotType} {vehiclenumber.VehicleNumber}  is parked in {lot.LotID}");
-                }
+               //Console.WriteLine($"Vehicle {lot.LotType} is parked in {lot.LotID} with ");
+                Console.WriteLine($" {lot.LotID} \t {lot.Ticket?.VehicleNumber} \t {lot.Ticket?.EntryTime} \t {lot.Ticket?.ExitTime} \t {lot.LotStatus}");
             }
         }
 
-        public int GenerteID()
-        {
-            return TicketID++;
-        }
     }
 }

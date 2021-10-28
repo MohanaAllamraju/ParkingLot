@@ -10,6 +10,9 @@ namespace ConsoleApp7
         public string LotType;
         public bool LotStatus;
 
+        public Ticket Ticket;
+        
+
 
        public Lot(int lotID, string lotType,bool lotStatus)
        {
@@ -17,6 +20,8 @@ namespace ConsoleApp7
             this.LotType = lotType;
             this.LotStatus = lotStatus;
        }
+
+
 
      }
 }

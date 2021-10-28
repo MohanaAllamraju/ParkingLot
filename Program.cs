@@ -43,21 +43,15 @@ namespace ConsoleApp7
                     String vehicleNumber = Console.ReadLine();
                     if (type == "1")
                     {
-                        int TicketID =parkingLot.GenerteID();
                         parkingLot.ParkVehicle("Two-wheeler" , vehicleNumber);
-                        Console.WriteLine("Your Ticket ID is : " + TicketID);
                     }
                     else if (type == "2")
-                    {
-                        int TicketID = parkingLot.GenerteID();
+                    {                       
                         parkingLot.ParkVehicle("Four-wheeler", vehicleNumber);
-                        Console.WriteLine("Your Ticket ID is : " + TicketID);
                     }
                     else if (type == "3")
                     {
-                        int TicketID = parkingLot.GenerteID();
                         parkingLot.ParkVehicle("Heavy-vehicle" , vehicleNumber);
-                        Console.WriteLine("Your Ticket ID is : " + TicketID);
                     }
                 }
                 else if(Mode == "2")
