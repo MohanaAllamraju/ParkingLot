@@ -56,21 +56,10 @@ namespace ConsoleApp7
                 }
                 else if(Mode == "2")
                 {
-                    Console.WriteLine("Choose your vehicle type : \n 1. Two-Wheeler \n 2. Four-Wheeler \n 3.Heavy-vehicle");
-                    String type = Console.ReadLine();
-                    if(type =="1")
-                    {
-                        parkingLot.UnParkVehicle("Two-Wheeler");
-                    }
-                    else if(type == "2")
-                    {
-                        parkingLot.UnParkVehicle("Four-Wheeler");
-                    }
-                    else if(type == "3")
-                    {
-                        parkingLot.UnParkVehicle("Heavy-Vehicle");
-                    }
 
+                    Console.WriteLine("Please enter your ticket number");
+                    int ticketNumber = Convert.ToInt32(Console.ReadLine());
+                    parkingLot.UnParkVehicle(ticketNumber);
                 }
                 else if (Mode == "3")
                 {

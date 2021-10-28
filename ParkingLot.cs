@@ -47,6 +47,7 @@ namespace ConsoleApp7
                 }
                 freeSlot.LotStatus = true;
                 freeSlot.Ticket = new Ticket(freeSlot.LotID, vehicleNumber, DateTime.Now);
+                Console.WriteLine("Your vehicle is parked and your ticket ID is :" + freeSlot.Ticket.SlotID);
              }
 
              else if(type.Equals("Four-wheeler" ,StringComparison.CurrentCultureIgnoreCase))
@@ -58,7 +59,8 @@ namespace ConsoleApp7
                     return;
                 }
                 freeSlot.LotStatus = true;
-               freeSlot.Ticket = new Ticket(freeSlot.LotID, vehicleNumber, DateTime.Now);
+                freeSlot.Ticket = new Ticket(freeSlot.LotID, vehicleNumber, DateTime.Now);
+                Console.WriteLine("Your vehicle is parked and your ticket ID is :" + freeSlot.Ticket.SlotID);
             }
              else if(type.Equals("Heavy-vehicle" , StringComparison.CurrentCultureIgnoreCase))
              {
@@ -70,14 +72,12 @@ namespace ConsoleApp7
                 }
                 freeSlot.LotStatus = true;
                 freeSlot.Ticket = new Ticket(freeSlot.LotID, vehicleNumber, DateTime.Now);
+                Console.WriteLine("Your vehicle is parked and your ticket ID is :" + freeSlot.Ticket.SlotID);
             }
         }
-        public void UnParkVehicle(string type)
+        public void UnParkVehicle(int ticketNumber)
         {
-
-            if (type.Equals("Two-wheeler", StringComparison.CurrentCultureIgnoreCase))
-            {
-                var AvailableSlot = this.Lots.Find(e => e.LotType.Equals(type, StringComparison.CurrentCultureIgnoreCase) && e.LotStatus == true);
+                var AvailableSlot = this.Lots.Find(lot => lot.LotStatus == true && lot.Ticket.SlotID == ticketNumber);
                 if (AvailableSlot == null)
                 {
                     Console.WriteLine("Parking lot is empty");
@@ -86,29 +86,6 @@ namespace ConsoleApp7
 
                 AvailableSlot.LotStatus = false;
                 AvailableSlot.Ticket.ExitTime = DateTime.Now;
-            }
-            else if(type.Equals("Four-wheeler" , StringComparison.CurrentCultureIgnoreCase))
-            {
-                var AvailableSlot = this.Lots.Find(e => e.LotType.Equals(type, StringComparison.CurrentCultureIgnoreCase) && e.LotStatus == true);
-                if(AvailableSlot == null)
-                {
-                    Console.WriteLine("Parking lot is empty");
-                    return;
-                }
-                AvailableSlot.LotStatus = false;
-                AvailableSlot.Ticket.ExitTime = DateTime.Now;
-            }
-            else if(type.Equals("Heavy-Vehicle", StringComparison.CurrentCultureIgnoreCase))
-            {
-                var AvailableSlot = this.Lots.Find(e => e.LotType.Equals(type, StringComparison.CurrentCultureIgnoreCase) && e.LotStatus == true);
-                if(AvailableSlot == null)
-                {
-                    Console.WriteLine("Parking lot is empty");
-                }
-                AvailableSlot.LotStatus = false;
-                AvailableSlot.Ticket.ExitTime = DateTime.Now;
-            }
-
         }
         public void PrintParkingLot()
         {
