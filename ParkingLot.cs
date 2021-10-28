@@ -7,30 +7,20 @@ namespace ConsoleApp7
 {
     class ParkingLot
     {
-        List<Slot> Lots = new List<Slot>();
+        private List<Slot> Lots = new List<Slot>();
 
-        int NoOfTwoWheelerSlotsAvailable;
-        int NoOfFourWheelerSlotsAvailable;
-        int NoOfHeavyWheelerSlotsAvailable;
-        int SlotId = 1;
+        private int SlotId = 1;
 
         public ParkingLot(int noOfTwoWheelerSlotsAvailable, int noOfFourWheelerSlotsAvailable, int noOfHeavyWheelerSlotsAvailable)
         {
-            this.NoOfTwoWheelerSlotsAvailable = noOfTwoWheelerSlotsAvailable;
-            this.NoOfFourWheelerSlotsAvailable = noOfFourWheelerSlotsAvailable;
-            this.NoOfHeavyWheelerSlotsAvailable = noOfHeavyWheelerSlotsAvailable;
             for(int i = 0; i< noOfTwoWheelerSlotsAvailable; i++)
-            {
                 this.Lots.Add(new Slot(SlotId++, VehicleType.TwoWheeler, false));
-            }
+            
             for(int i=0; i<noOfFourWheelerSlotsAvailable; i++)
-            {
                 this.Lots.Add(new Slot(SlotId++,VehicleType.FourWheeler, false));
-            }
+            
             for (int i= 0; i<noOfHeavyWheelerSlotsAvailable; i++)
-            {
                 this.Lots.Add(new Slot(SlotId++, VehicleType.HeavyVehicle, false));
-            }
         }    
         
         public void ParkVehicle(VehicleType vehicleType, string vehicleNumber)
@@ -48,7 +38,7 @@ namespace ConsoleApp7
 
         public void UnParkVehicle(int ticketNumber)
         {
-                var AvailableSlot = this.Lots.Find(lot => lot.LotStatus == true && lot.Ticket.SlotID == ticketNumber);
+                var AvailableSlot = this.Lots.Find(lot => lot.LotStatus && lot.Ticket.SlotID == ticketNumber);
                 if (AvailableSlot == null)
                 {
                     Console.WriteLine("Parking lot is empty");
