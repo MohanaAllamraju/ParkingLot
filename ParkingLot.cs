@@ -12,7 +12,6 @@ namespace ConsoleApp7
         int NoOfFourWheelerSlotsAvailable;
         int NoOfHeavyWheelerSlotsAvailable;
 
-
         int LotId = 1;
 
         public ParkingLot(int noOfTwoWheelerSlotsAvailable, int noOfFourWheelerSlotsAvailable, int noOfHeavyWheelerSlotsAvailable)
